@@ -1,4 +1,17 @@
 /**
+ * This file is a fork of the official Marlin file.
+ * It is edited to make user configuring a lot easier.
+ * It has no code changes from the official release unless you call rearranging defines a code change.
+ * Also, optional functions crammed into the config file now are in their own file.
+ * To use these options you simply uncomment the #include statement and make necessary config changes to that file.
+ * If you like the format, make your opinion known on the official Marlin site.
+ * I have tried to consolodate all configs for specific functions together so that
+ * you need not search multiple locations in a file or even multiple files.
+ * I have also added/modified some text to make it easier to read & understand.
+ * If you have other suggestions, please feel free to comment.
+ */
+
+/**
  * Marlin 3D Printer Firmware
  * Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
@@ -17,7 +30,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 /**
@@ -39,7 +51,6 @@
 #define CONFIGURATION_H
 
 /**
- *
  *  ***********************************
  *  **  ATTENTION TO ALL DEVELOPERS  **
  *  ***********************************
@@ -70,29 +81,36 @@
 //===========================================================================
 //============================= DELTA Printer ===============================
 //===========================================================================
-// For a Delta printer replace the configuration files with the files in the
-// example_configurations/delta directory.
-//
+/* For a Delta printer replace the configuration files with the files in the
+ * example_configurations/delta directory.
+ */
 
 //===========================================================================
 //============================= SCARA Printer ===============================
 //===========================================================================
-// For a Scara printer replace the configuration files with the files in the
-// example_configurations/SCARA directory.
-//
+/* For a Scara printer replace the configuration files with the files in the
+ * example_configurations/SCARA directory.
+ */
 
+//===========================================================================
+//========================== ALL OTHER Printers =============================
+//===========================================================================
+
+//============================= Info Section ================================
 // @section info
 
-// User-specified version info of this build to display in [Pronterface, etc] terminal window during
-// startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
-// build by the user have been successfully uploaded into firmware.
+/* User-specified version info of this build that will display on the teminal window during
+ * startup and for the status screen. You can use this to ID your changes made to this
+ * build and verify that is was successfully uploaded to your printer.
+ * When replacing predefined variables, insure the text is enclosed in ".."
+ */
 #define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
 #define SHOW_BOOTSCREEN
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
 #define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
 
-//
-// *** VENDORS PLEASE READ *****************************************************
+
+/* *** VENDORS PLEASE READ *****************************************************
 //
 // Marlin now allow you to have a vendor boot image to be displayed on machine
 // start. When SHOW_CUSTOM_BOOTSCREEN is defined Marlin will first show your
@@ -101,9 +119,24 @@
 // We suggest for you to take advantage of this new feature and keep the Marlin
 // boot image unmodified. For an example have a look at the bq Hephestos 2
 // example configuration folder.
-//
+*/
 //#define SHOW_CUSTOM_BOOTSCREEN
+
+//============================= Machine Section ================================
 // @section machine
+
+/* This section is the hardware definition for the printer.
+ * Uncomment #include files to include them as part of your hardware.
+ * Be sure to look over these files to make any necessary config changes.
+ */
+#include "lcd_select.h" // to add a display option
+#include "SD_card.h" // to add SD card support
+//#include "mesh_bed_level.h' // to add Mesh Bed Leveling option
+//#include "auto_bed_level.h' // To add Auto Bed Leveling option
+//#include "filament_sensor.h" // To add fillament sensor option
+//#include "rc_servo.h" // To add RC Servo option
+//#include "z_probe.h" // To add Z Probe option
+
 
 /**
  * Select which serial port on the board will be used for communication with the host.
@@ -116,10 +149,8 @@
 
 /**
  * This setting determines the communication speed of the printer.
- *
  * 250000 works in most cases, but you might try a lower speed if
  * you commonly experience drop-outs during host printing.
- *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000]
  */
 #define BAUDRATE 250000
@@ -128,12 +159,12 @@
 //#define BLUETOOTH
 
 // The following define selects which electronics board you have.
-// Please choose the name from boards.h that matches your setup
+// Please choose a name from boards.h that matches your setup
 #ifndef MOTHERBOARD
   #define MOTHERBOARD BOARD_RAMPS_14_EFB
 #endif
 
-// Optional custom name for your RepStrap or other custom machine
+// Optional name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
 //#define CUSTOM_MACHINE_NAME "3D Printer"
 
